@@ -1,0 +1,117 @@
+name: Regenerate Syscoin LLM Context Bundle
+
+on:
+  # Scheduled: every Monday at 03:00 UTC
+  schedule:
+    - cron: "0 3 * * 1"
+
+  # Manual trigger with optional flags
+  workflow_dispatch:
+    inputs:
+      skip_web:
+        description: "Skip web crawling (faster)"
+        type: boolean
+        default: false
+      skip_github:
+        description: "Skip GitHub fetching (static + web only)"
+        type: boolean
+        default: false
+
+  # Trigger on changes to the manifest in the main branch
+  push:
+    branches:
+      - main
+    paths:
+      - "sources.yaml"
+      - "generate.py"
+      - "requirements.txt"
+
+permissions:
+  contents: write   # needed to commit the generated file back
+  id-token: write   # needed for OIDC if you use cloud storage later
+
+jobs:
+  generate:
+    name: Generate llms-full.txt
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history so we can commit back cleanly.
+          fetch-depth: 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate bundle
+        env:
+          # Provide a PAT with repo:read (public repos only) or use GITHUB_TOKEN.
+          # GITHUB_TOKEN from actions is fine for public repos and gives 5000 req/h.
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.skip_web }}" = "true" ]; then
+            ARGS="$ARGS --skip-web"
+          fi
+          if [ "${{ github.event.inputs.skip_github }}" = "true" ]; then
+            ARGS="$ARGS --skip-github"
+          fi
+          python generate.py --config sources.yaml $ARGS
+
+      - name: Show output stats
+        run: |
+          echo "=== llms-full.txt ==="
+          wc -c llms-full.txt
+          wc -l llms-full.txt
+          echo "=== Manifest ==="
+          cat llms-full.manifest.json
+
+      # Commit the generated files back to the repo.
+      - name: Commit generated files
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add llms-full.txt llms-full.manifest.json
+          # Only commit if something changed.
+          git diff --cached --quiet && echo "No changes to commit" || \
+            git commit -m "chore: regenerate llms-full.txt [skip ci]"
+          git push
+
+      # Optionally upload as a release artifact on manual runs.
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: syscoin-llms-full
+          path: |
+            llms-full.txt
+            llms-full.manifest.json
+          retention-days: 30
+
+      # Create / update a GitHub Release on the main branch (tag: llms-latest).
+      # This gives a stable permalink:
+      #   https://github.com/<owner>/<repo>/releases/download/llms-latest/llms-full.txt
+      - name: Create or update release
+        if: github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="llms-latest"
+          # Delete the old tag/release if it exists, then re-create.
+          gh release delete "$TAG" --yes 2>/dev/null || true
+          git tag -f "$TAG"
+          git push origin "$TAG" --force
+          gh release create "$TAG" \
+            --title "Syscoin LLM Context Bundle (latest)" \
+            --notes "Auto-generated on $(date -u +%Y-%m-%dT%H:%M:%SZ). See llms-full.manifest.json for details." \
+            --latest \
+            llms-full.txt \
+            llms-full.manifest.json

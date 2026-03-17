@@ -1,0 +1,7 @@
+# Core HTTP + HTML parsing
+requests>=2.32.0
+beautifulsoup4>=4.12.0
+lxml>=5.2.0          # faster HTML parser backend for BeautifulSoup
+
+# YAML config
+PyYAML>=6.0.1

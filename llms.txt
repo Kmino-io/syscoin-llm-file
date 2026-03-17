@@ -1,0 +1,69 @@
+# Syscoin LLM Context Bundle
+
+> A curated, LLM-friendly plaintext bundle of Syscoin's canonical documentation, protocol specifications, developer references, and operational guides.
+
+
+Use this index for lightweight discovery, then load llms-full.txt for full inline context.
+
+## Full Context
+- [llms-full.txt](llms-full.txt): Expanded context bundle with source-attributed content.
+
+## Node / Core
+- [Syscoin Core – Docs](https://github.com/syscoin/syscoin): GitHub repository (master branch/ref).
+
+## Protocol – NEVM (EVM Layer)
+- [Syscoin NEVM – EVM integration docs](https://github.com/syscoin/syscoin): GitHub repository (master branch/ref).
+
+## Protocol – Z-DAG
+- [Z-DAG Overview](llms-full.txt): Inlined in llms-full.txt.
+
+## Protocol – Rollux (L2)
+- [Rollux – L2 documentation](https://github.com/sys-labs/rollux): GitHub repository (main branch/ref).
+
+## Protocol – Rollux Docs
+- [Rollux Docs](https://docs.rollux.com): Crawl root for official docs.
+
+## Protocol – ZK Network
+- [Syscoin ZK Network – zksync-era](https://github.com/sidhujag/zksync-era): GitHub repository (main branch/ref).
+
+## Specs – SyIPs
+- [Syscoin Improvement Proposals (SyIPs)](https://github.com/syscoin/syips): GitHub repository (main branch/ref).
+
+## Official Docs
+- [Syscoin Official Docs](https://docs.syscoin.org): Crawl root for official docs.
+
+## Developer – RPC & CLI
+- [Syscoin Core – RPC & CLI reference](https://github.com/syscoin/syscoin): GitHub repository (master branch/ref).
+
+## Developer – JS SDK
+- [syscoinjs-lib – JavaScript SDK](https://github.com/syscoin/syscoinjs-lib): GitHub repository (master branch/ref).
+
+## Developer – Rosetta API
+- [Syscoin Rosetta API](https://github.com/syscoin/syscoin-rosetta): GitHub repository (master branch/ref).
+
+## Developer – MetaMask Snap
+- [Syscoin MetaMask Snap](https://github.com/syscoin/syscoin-snap): GitHub repository (main branch/ref).
+
+## Developer – Pali Wallet
+- [Pali Wallet](https://github.com/syscoin/pali-wallet): GitHub repository (main branch/ref).
+
+## Developer – Syscoin Bridge
+- [Syscoin Bridge](https://github.com/syscoin/syscoin-bridge): GitHub repository (main branch/ref).
+
+## Node – Sentinel / Masternodes
+- [Syscoin Sentinel](https://github.com/syscoin/sentinel): GitHub repository (master branch/ref).
+
+## Operations – Docker
+- [Syscoin Docker images](https://github.com/syscoin/docker-syscoin-core): GitHub repository (master branch/ref).
+
+## Reference – Network Parameters
+- [Syscoin Network Parameters](llms-full.txt): Inlined in llms-full.txt.
+
+## Reference – NEVM Quick Reference
+- [Syscoin NEVM / EVM Quick Reference](llms-full.txt): Inlined in llms-full.txt.
+
+## Ecosystem – Blog Highlights
+- [Syscoin Blog – selected posts](https://syscoin.org/news/syscoin-platform-upgrade): Canonical web page.
+- [Syscoin Blog – selected posts](https://syscoin.org/news/introducing-rollux): Canonical web page.
+- [Syscoin Blog – selected posts](https://syscoin.org/news/syscoin-4-4-launch): Canonical web page.
+- [Syscoin Blog – selected posts](https://syscoin.org/news/z-dag-explained): Canonical web page.

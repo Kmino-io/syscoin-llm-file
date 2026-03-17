@@ -1,0 +1,6 @@
+llms-full.txt
+llms-full.manifest.json
+llms-full.failures.json
+__pycache__/
+*.pyc
+.env

@@ -1,0 +1,326 @@
+# sources.yaml — Syscoin LLM context bundle manifest
+# Defines what to pull, in what order, and how to label each section.
+# The generator script reads this file to reproduce a deterministic llms-full.txt.
+#
+# Last reviewed: 2026-03-12
+
+metadata:
+  title: "Syscoin LLM Context Bundle"
+  description: >
+    A curated, LLM-friendly plaintext bundle of Syscoin's canonical documentation,
+    protocol specifications, developer references, and operational guides.
+  version: "1.0.0"
+  # Bump this when the source list changes meaningfully.
+  output_file: "llms-full.txt"
+  # Warn readers that time-sensitive data may be stale.
+  staleness_notice: >
+    WARNING: Network parameters, release versions, chain IDs, and RPC endpoints
+    are time-sensitive. Always verify against the official Syscoin documentation
+    or repository before using in production.
+
+# ---------------------------------------------------------------------------
+# GitHub sources
+# Each entry pulls one or more paths from a GitHub repo at a specific ref.
+# Supported file types: .md, .txt, .rst  (others are skipped by default).
+# ---------------------------------------------------------------------------
+github:
+
+  # -- Core protocol / node ------------------------------------------------
+  - repo: syscoin/syscoin
+    ref: master          # branch, tag, or full commit SHA
+    label: "Syscoin Core – Docs"
+    paths:
+      - doc/README.md
+      - doc/build-unix.md
+      - doc/build-osx.md
+      - doc/build-windows.md
+      - doc/build-freebsd.md
+      - doc/dependencies.md
+      - doc/release-notes.md
+      - doc/reduce-memory.md
+      - doc/reduce-traffic.md
+      - doc/REST-interface.md
+      - doc/tor.md
+      - doc/i2p.md
+      - doc/multiwallet-qt.md
+      - doc/psbt.md
+      - doc/descriptors.md
+      - doc/hardware-wallets.md
+      - doc/signet.md
+      - doc/assets-whitepaper.pdf   # skip if binary; generator handles gracefully
+      - README.md
+      - CONTRIBUTING.md
+      - SECURITY.md
+    section: "Node / Core"
+
+  - repo: syscoin/syscoin
+    ref: master
+    label: "Syscoin Core – RPC & CLI reference"
+    # These are generated man pages / text refs committed to the repo.
+    paths:
+      - doc/syscoin-conf.md
+    # Fallback: if the doc/ folder doesn't have pre-rendered refs, the
+    # generator will attempt to download from the docs site or skip.
+    section: "Developer – RPC & CLI"
+
+  # -- NEVM / EVM layer ----------------------------------------------------
+  - repo: syscoin/syscoin
+    ref: master
+    label: "Syscoin NEVM – EVM integration docs"
+    paths:
+      - doc/nevm/README.md
+      - doc/nevm/evm-integration.md
+      - doc/nevm/evm-parameters.md
+      - doc/nevm/cross-chain.md
+    # These paths may not exist yet; generator skips missing files with a warning.
+    section: "Protocol – NEVM (EVM Layer)"
+
+  # -- Rollux (L2 on Syscoin) ----------------------------------------------
+  - repo: sys-labs/rollux
+    ref: main
+    label: "Rollux – L2 documentation"
+    paths:
+      - README.md
+      - docs/
+    section: "Protocol – Rollux (L2)"
+    # Recursively include all .md files under docs/
+    recursive: true
+
+  # -- SRC-20 / token standard ---------------------------------------------
+  - repo: syscoin/syips
+    ref: main
+    label: "Syscoin Improvement Proposals (SyIPs)"
+    paths: []          # empty = include all .md files at repo root
+    recursive: false
+    section: "Specs – SyIPs"
+
+  # -- Sentinel / Masternode -----------------------------------------------
+  - repo: syscoin/sentinel
+    ref: master
+    label: "Syscoin Sentinel"
+    paths:
+      - README.md
+    section: "Node – Sentinel / Masternodes"
+
+  # -- SDK / libraries ------------------------------------------------------
+  - repo: syscoin/syscoinjs-lib
+    ref: master
+    label: "syscoinjs-lib – JavaScript SDK"
+    paths:
+      - README.md
+      - docs/
+    recursive: true
+    section: "Developer – JS SDK"
+
+  - repo: syscoin/syscoin-rosetta
+    ref: master
+    label: "Syscoin Rosetta API"
+    paths:
+      - README.md
+      - docs/
+    recursive: true
+    section: "Developer – Rosetta API"
+
+  - repo: syscoin/syscoin-snap
+    ref: main
+    label: "Syscoin MetaMask Snap"
+    paths:
+      - README.md
+    section: "Developer – MetaMask Snap"
+
+  # -- Pali Wallet ---------------------------------------------------------
+  - repo: syscoin/pali-wallet
+    ref: main
+    label: "Pali Wallet"
+    paths:
+      - README.md
+      - docs/
+    recursive: true
+    section: "Developer – Pali Wallet"
+
+  # -- Syscoin Bridge -------------------------------------------------------
+  - repo: syscoin/syscoin-bridge
+    ref: main
+    label: "Syscoin Bridge"
+    paths:
+      - README.md
+      - docs/
+    recursive: true
+    section: "Developer – Syscoin Bridge"
+
+  # -- ZK Network (zksync-era fork) ----------------------------------------
+  - repo: sidhujag/zksync-era
+    ref: main
+    label: "Syscoin ZK Network – zksync-era"
+    paths:
+      - README.md
+      - docs/
+    recursive: true
+    section: "Protocol – ZK Network"
+
+  # -- Infrastructure / tooling --------------------------------------------
+  - repo: syscoin/docker-syscoin-core
+    ref: master
+    label: "Syscoin Docker images"
+    paths:
+      - README.md
+    section: "Operations – Docker"
+
+# ---------------------------------------------------------------------------
+# Web / docs-site sources
+# Pages are fetched, HTML is stripped to main content, then appended.
+# Provide a list of URLs or a crawl root + include/exclude regex patterns.
+# ---------------------------------------------------------------------------
+web:
+
+  - label: "Syscoin Official Docs"
+    base_url: "https://docs.syscoin.org"
+    # Crawl all pages under /docs (BFS, max_depth levels).
+    crawl:
+      root: "https://docs.syscoin.org"
+      max_depth: 4
+      max_pages: 200
+      include_patterns:
+        - "^https://docs\\.syscoin\\.org/"
+      exclude_patterns:
+        - "/api/"          # auto-generated API reference – large & less useful
+        - "\\.pdf$"
+        - "\\?lang="       # skip language variants
+    section: "Official Docs"
+
+  - label: "Syscoin Blog – selected posts"
+    # List specific URLs rather than crawling the whole blog.
+    urls:
+      - "https://syscoin.org/news/syscoin-platform-upgrade"
+      - "https://syscoin.org/news/introducing-rollux"
+      - "https://syscoin.org/news/syscoin-4-4-launch"
+      - "https://syscoin.org/news/z-dag-explained"
+    section: "Ecosystem – Blog Highlights"
+
+  - label: "Rollux Docs"
+    base_url: "https://docs.rollux.com"
+    crawl:
+      root: "https://docs.rollux.com"
+      max_depth: 3
+      max_pages: 150
+      include_patterns:
+        - "^https://docs\\.rollux\\.com/"
+      exclude_patterns:
+        - "/api/"
+        - "\\.pdf$"
+    section: "Protocol – Rollux Docs"
+
+# ---------------------------------------------------------------------------
+# Inline / static snippets
+# Small, hand-curated content blocks injected verbatim at assembly time.
+# Use for network parameters, chain IDs, RPC endpoints, etc.
+# ---------------------------------------------------------------------------
+static:
+
+  - label: "Syscoin Network Parameters"
+    section: "Reference – Network Parameters"
+    # Mark as time-sensitive so the generator adds a staleness warning.
+    time_sensitive: true
+    content: |
+      ## Syscoin Network Parameters
+
+      > **Note:** These values were accurate as of the bundle generation date.
+      > Always verify against https://github.com/syscoin/syscoin and https://docs.syscoin.org.
+
+      | Parameter           | Mainnet         | Testnet (v4)   | Regtest        |
+      |---------------------|-----------------|----------------|----------------|
+      | Network / Chain ID  | 57 (NEVM EVM)   | 5700           | 1337           |
+      | BIP44 Coin Type     | 57              | 1 (testnet)    | —              |
+      | Default P2P Port    | 8369            | 18369          | 18444          |
+      | Default RPC Port    | 8370            | 18370          | 18443          |
+      | Native ticker       | SYS             | tSYS           | SYS            |
+      | Block time (target) | ~2.5 min (PoW merge-mined with BTC) | same | instant |
+      | Consensus           | AuxPoW (merge-mined) + Finality Chainlocks via Masternodes | | |
+      | Explorer (mainnet)  | https://explorer.syscoin.org | https://tanenbaum.io | — |
+      | NEVM RPC (mainnet)  | https://rpc.syscoin.org | https://rpc.tanenbaum.io | http://localhost:8545 |
+
+  - label: "Syscoin NEVM / EVM Quick Reference"
+    section: "Reference – NEVM Quick Reference"
+    time_sensitive: true
+    content: |
+      ## NEVM (Native EVM) Quick Reference
+
+      Syscoin's NEVM is an EVM-compatible execution layer secured by Syscoin's
+      UTXO base chain (merge-mined with Bitcoin). It supports standard
+      EVM tooling: Hardhat, Foundry, ethers.js, Metamask, etc.
+
+      ### Connecting MetaMask / Wallets
+
+      **Mainnet**
+      - Network Name: Syscoin Mainnet
+      - RPC URL: https://rpc.syscoin.org
+      - Chain ID: 57
+      - Symbol: SYS
+      - Block Explorer: https://explorer.syscoin.org
+
+      **Testnet (Tanenbaum)**
+      - Network Name: Syscoin Tanenbaum Testnet
+      - RPC URL: https://rpc.tanenbaum.io
+      - Chain ID: 5700
+      - Symbol: tSYS
+      - Block Explorer: https://tanenbaum.io
+
+      ### Faucet (testnet SYS)
+      https://faucet.tanenbaum.io
+
+  - label: "Z-DAG Overview"
+    section: "Protocol – Z-DAG"
+    time_sensitive: false
+    content: |
+      ## Z-DAG (Zero-Confirmation Directed Acyclic Graph)
+
+      Z-DAG is Syscoin's probabilistic instant settlement mechanism for
+      SYS and Syscoin Platform Token (SPT) transfers on the UTXO layer.
+      It provides strong double-spend detection in seconds without waiting
+      for block confirmation.
+
+      ### How it works
+      1. A transaction is broadcast to the mempool as normal.
+      2. Nodes propagate the transaction while continuously checking for
+         conflicting inputs across the DAG of in-flight transactions.
+      3. If no conflict is detected after the configured propagation window,
+         merchants/apps can treat the payment as "Z-DAG safe".
+      4. Final on-chain confirmation still occurs at the next block.
+
+      ### Key properties
+      - Sub-second conflict detection in well-connected network conditions.
+      - Compatible with standard Bitcoin-style UTXO transactions.
+      - Does NOT change the UTXO base-chain consensus rules.
+      - Risk model: probabilistic, not absolute — use block confirmation for
+        high-value irreversible actions.
+
+      ### RPC calls related to Z-DAG
+      - `syscoingetspvproof` — returns SPV proof for a transaction.
+      - `getzdagstatus` — returns Z-DAG status for a TXID.
+
+# ---------------------------------------------------------------------------
+# Assembly order
+# Defines the order of sections in the final llms-full.txt.
+# Section names must match the `section:` fields above exactly.
+# Any section not listed here is appended at the end in source-file order.
+# ---------------------------------------------------------------------------
+assembly_order:
+  - "Node / Core"
+  - "Protocol – NEVM (EVM Layer)"
+  - "Protocol – Z-DAG"
+  - "Protocol – Rollux (L2)"
+  - "Protocol – Rollux Docs"
+  - "Protocol – ZK Network"
+  - "Specs – SyIPs"
+  - "Official Docs"
+  - "Developer – RPC & CLI"
+  - "Developer – JS SDK"
+  - "Developer – Rosetta API"
+  - "Developer – MetaMask Snap"
+  - "Developer – Pali Wallet"
+  - "Developer – Syscoin Bridge"
+  - "Node – Sentinel / Masternodes"
+  - "Operations – Docker"
+  - "Reference – Network Parameters"
+  - "Reference – NEVM Quick Reference"
+  - "Ecosystem – Blog Highlights"
