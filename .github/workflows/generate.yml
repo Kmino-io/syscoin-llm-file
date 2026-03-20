@@ -72,15 +72,20 @@ jobs:
           echo "=== llms-full.txt ==="
           wc -c llms-full.txt
           wc -l llms-full.txt
+          echo "=== llms.txt ==="
+          wc -c llms.txt
+          wc -l llms.txt
           echo "=== Manifest ==="
           cat llms-full.manifest.json
+          echo "=== Failures ==="
+          cat llms-full.failures.json
 
       # Commit the generated files back to the repo.
       - name: Commit generated files
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add llms-full.txt llms-full.manifest.json
+          git add -f llms.txt llms-full.txt llms-full.manifest.json llms-full.failures.json
           # Only commit if something changed.
           git diff --cached --quiet && echo "No changes to commit" || \
             git commit -m "chore: regenerate llms-full.txt [skip ci]"
@@ -92,8 +97,10 @@ jobs:
         with:
           name: syscoin-llms-full
           path: |
+            llms.txt
             llms-full.txt
             llms-full.manifest.json
+            llms-full.failures.json
           retention-days: 30
 
       # Create / update a GitHub Release on the main branch (tag: llms-latest).
@@ -113,5 +120,7 @@ jobs:
             --title "Syscoin LLM Context Bundle (latest)" \
             --notes "Auto-generated on $(date -u +%Y-%m-%dT%H:%M:%SZ). See llms-full.manifest.json for details." \
             --latest \
+            llms.txt \
             llms-full.txt \
-            llms-full.manifest.json
+            llms-full.manifest.json \
+            llms-full.failures.json
