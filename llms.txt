@@ -62,6 +62,9 @@ Use this index for lightweight discovery, then load llms-full.txt for full inlin
 ## Reference – NEVM Quick Reference
 - [Syscoin NEVM / EVM Quick Reference](llms-full.txt): Inlined in llms-full.txt.
 
+## Reference – zkSYS Stack / zk-hardhat
+- [zkSYS Stack / zk-hardhat Quick Reference](llms-full.txt): Inlined in llms-full.txt.
+
 ## Ecosystem – Blog Highlights
 - [Syscoin Blog – selected posts](https://syscoin.org/news/syscoin-platform-upgrade): Canonical web page.
 - [Syscoin Blog – selected posts](https://syscoin.org/news/introducing-rollux): Canonical web page.

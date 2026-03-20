@@ -268,6 +268,70 @@ static:
       ### Faucet (testnet SYS)
       https://faucet.tanenbaum.io
 
+  - label: "zkSYS Stack / zk-hardhat Quick Reference"
+    section: "Reference – zkSYS Stack / zk-hardhat"
+    time_sensitive: true
+    content: |
+      ## zkSYS Stack / zk-hardhat Quick Reference
+
+      > **Note:** This section includes curated operational values that may change.
+      > Always verify chain IDs, RPC URLs, and explorer endpoints with official
+      > zkSYS / Syscoin sources before production use.
+
+      ### Tooling requirement: use zk-hardhat
+
+      Standard Hardhat-only deploy flows are not sufficient for zkSYS contracts.
+      Use the zkSync-compatible Hardhat toolchain (commonly called "zk-hardhat")
+      with zkSync plugins + `zksolc`.
+
+      Common plugins in the zk-hardhat toolchain include:
+      - `@matterlabs/hardhat-zksync-solc`
+      - `@matterlabs/hardhat-zksync-deploy`
+      - `@matterlabs/hardhat-zksync-verify`
+
+      ### Deployment differences vs standard EVM flow
+
+      1. Compiler/toolchain differs
+         - Standard EVM flow typically uses `solc` directly via Hardhat.
+         - zkSYS flow uses `zksolc` through zk-hardhat plugins.
+      2. Artifact/deployment model differs
+         - zkSYS deployment may involve additional compiler metadata and
+           contract dependency handling compared to a vanilla EVM deploy.
+      3. Gas + fee model differs in practice
+         - Execution and data publication costs can differ from L1/L2 EVM norms,
+           so always estimate fees on target network before deployment.
+      4. Verification workflow differs
+         - Verification generally requires zkSync-compatible tooling/endpoints rather
+           than only standard Etherscan-like settings.
+
+      ### Minimal zk-hardhat workflow
+
+      ```bash
+      # install
+      npm i -D hardhat @matterlabs/hardhat-zksync-solc @matterlabs/hardhat-zksync-deploy @matterlabs/hardhat-zksync-verify
+
+      # compile (with zksolc configured in hardhat.config)
+      npx hardhat compile
+
+      # deploy (network from hardhat config)
+      npx hardhat deploy-zksync --script deploy.ts --network zksysTanenbaum
+      ```
+
+      ### Chain & endpoint reference (Gateway + zkSYS)
+
+      | Network | Chain ID | RPC | Explorer |
+      |---|---:|---|---|
+      | Gateway Chain (Tanenbaum) | 57001 | https://rpc-gw.tanenbaum.io | https://explorer-gw.tanenbaum.io |
+      | zkSYS Chain (Tanenbaum) | 57057 | https://rpc-zk.tanenbaum.io | https://explorer-zk.tanenbaum.io |
+
+      ### Ecosystem endpoints (Tanenbaum)
+
+      - Bridge: https://bridge-zk.tanenbaum.io
+      - Faucet: https://faucet-zk.tanenbaum.io
+
+      Last curated update: 2026-03-20 (manual curation).
+      Re-validate before production use.
+
   - label: "Z-DAG Overview"
     section: "Protocol – Z-DAG"
     time_sensitive: false
@@ -323,4 +387,5 @@ assembly_order:
   - "Operations – Docker"
   - "Reference – Network Parameters"
   - "Reference – NEVM Quick Reference"
+  - "Reference – zkSYS Stack / zk-hardhat"
   - "Ecosystem – Blog Highlights"
