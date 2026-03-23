@@ -1,0 +1,30 @@
+{
+  "generated_at": "2026-03-23T05:05:02.499961+00:00",
+  "output_file": "llms-full.txt",
+  "size_bytes": 1367678,
+  "sha256": "d35e9ec85f25f896250c28c90838043cf2bbd1dc51793fad5a4bcf86e40eebfa",
+  "sections": [
+    "Reference \u2013 Network Parameters",
+    "Reference \u2013 NEVM Quick Reference",
+    "Reference \u2013 zkSYS Stack / zk-hardhat",
+    "Protocol \u2013 Z-DAG",
+    "Node / Core",
+    "Developer \u2013 RPC & CLI",
+    "Protocol \u2013 NEVM (EVM Layer)",
+    "Protocol \u2013 Rollux (L2)",
+    "Specs \u2013 SyIPs",
+    "Node \u2013 Sentinel / Masternodes",
+    "Developer \u2013 JS SDK",
+    "Developer \u2013 Rosetta API",
+    "Developer \u2013 MetaMask Snap",
+    "Developer \u2013 Pali Wallet",
+    "Developer \u2013 Syscoin Bridge",
+    "Protocol \u2013 ZK Network",
+    "Operations \u2013 Docker",
+    "Official Docs",
+    "Ecosystem \u2013 Blog Highlights",
+    "Protocol \u2013 Rollux Docs"
+  ],
+  "failure_count": 15,
+  "config_version": "1.0.0"
+}

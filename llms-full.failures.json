@@ -1,0 +1,82 @@
+{
+  "generated_at": "2026-03-23T05:05:02.500192+00:00",
+  "output_file": "llms-full.txt",
+  "failure_count": 15,
+  "failures": [
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/multiwallet-qt.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/hardware-wallets.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/signet.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/nevm/README.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/nevm/evm-integration.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/nevm/evm-parameters.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin/master/doc/nevm/cross-chain.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://api.github.com/repos/sys-labs/rollux/git/trees/main?recursive=1",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/sys-labs/rollux/main/README.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://api.github.com/repos/syscoin/syips/git/trees/main?recursive=1",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://api.github.com/repos/syscoin/syscoin-rosetta/git/trees/master?recursive=1",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin-rosetta/master/README.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/syscoin-snap/main/README.md",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://api.github.com/repos/syscoin/pali-wallet/git/trees/main?recursive=1",
+      "reason": "http_404",
+      "status_code": 404
+    },
+    {
+      "url": "https://raw.githubusercontent.com/syscoin/pali-wallet/main/README.md",
+      "reason": "http_404",
+      "status_code": 404
+    }
+  ]
+}
