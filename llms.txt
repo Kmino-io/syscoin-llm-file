@@ -3,69 +3,100 @@
 > A curated, LLM-friendly plaintext bundle of Syscoin's canonical documentation, protocol specifications, developer references, and operational guides.
 
 
-Use this index for lightweight discovery, then load llms-full.txt for full inline context.
+Use this index for lightweight discovery. Start here, then load llms-full.txt for deep inline context.
 
-## Full Context
+## Metadata
+- Generated: 2026-03-24T16:47:36Z
+- Link count: 82
+- Known source failures in last run: 0
+
+## Learn
 - [llms-full.txt](llms-full.txt): Expanded context bundle with source-attributed content.
-
-## Node / Core
-- [Syscoin Core – Docs](https://github.com/syscoin/syscoin): GitHub repository (master branch/ref).
-
-## Protocol – NEVM (EVM Layer)
-- [Syscoin NEVM – EVM integration docs](https://github.com/syscoin/syscoin): GitHub repository (master branch/ref).
-
-## Protocol – Z-DAG
-- [Z-DAG Overview](llms-full.txt): Inlined in llms-full.txt.
-
-## Protocol – Rollux (L2)
-- [Rollux – L2 documentation](https://github.com/sys-labs/rollux): GitHub repository (main branch/ref).
-
-## Protocol – Rollux Docs
-- [Rollux Docs](https://docs.rollux.com): Crawl root for official docs.
-
-## Protocol – ZK Network
-- [Syscoin ZK Network – zksync-era](https://github.com/sidhujag/zksync-era): GitHub repository (main branch/ref).
-
-## Specs – SyIPs
-- [Syscoin Improvement Proposals (SyIPs)](https://github.com/syscoin/syips): GitHub repository (main branch/ref).
-
-## Official Docs
+- [Rollux – L2 documentation — README.md](https://raw.githubusercontent.com/sys-labs/rollux/develop/README.md): Protocol-level documentation and technical reference.
+- [Rollux – L2 documentation — docs/](https://github.com/sys-labs/rollux/tree/develop/docs): Directory index. Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — docs/](https://github.com/sidhujag/zksync-era/tree/main/docs): Directory index. Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — CHANGELOG.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/CHANGELOG.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — CONTRIBUTING.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/CONTRIBUTING.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/bin/external_node/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/bin/external_node/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/lib/config/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/lib/config/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/lib/da_client/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/lib/da_client/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/lib/dal/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/lib/dal/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/lib/multivm/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/lib/multivm/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/lib/vm_interface/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/lib/vm_interface/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/api_server/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/api_server/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/consensus/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/consensus/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/contract_verification_server/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/contract_verification_server/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/da_clients/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/da_clients/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/genesis/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/genesis/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/node_sync/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/node_sync/README.md): Protocol-level documentation and technical reference.
+- [Syscoin ZK Network – zksync-era — core/node/state_keeper/README.md](https://raw.githubusercontent.com/sidhujag/zksync-era/main/core/node/state_keeper/README.md): Protocol-level documentation and technical reference.
 - [Syscoin Official Docs](https://docs.syscoin.org): Crawl root for official docs.
+- [Rollux Docs](https://docs.rollux.com): Crawl root for official docs.
+- [Syscoin Network Parameters](llms-full.txt): Inlined reference inside llms-full.txt.
+- [Syscoin NEVM / EVM Quick Reference](llms-full.txt): Inlined reference inside llms-full.txt.
+- [zkSYS Stack / zk-hardhat Quick Reference](llms-full.txt): Inlined reference inside llms-full.txt.
+- [Z-DAG Overview](llms-full.txt): Inlined reference inside llms-full.txt.
 
-## Developer – RPC & CLI
-- [Syscoin Core – RPC & CLI reference](https://github.com/syscoin/syscoin): GitHub repository (master branch/ref).
+## Build
+- [Syscoin Core – Build & developer tooling — doc/build-unix.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-unix.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/build-osx.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-osx.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/build-windows.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-windows.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/build-freebsd.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-freebsd.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/build-netbsd.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-netbsd.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/build-openbsd.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-openbsd.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/build-android.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/build-android.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/dependencies.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/dependencies.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/developer-notes.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/developer-notes.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/productivity.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/productivity.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/benchmarking.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/benchmarking.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/shared-libraries.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/shared-libraries.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/guix.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/guix.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/fuzzing.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/fuzzing.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Build & developer tooling — doc/tracing.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/tracing.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – RPC & API reference — doc/JSON-RPC-interface.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/JSON-RPC-interface.md): RPC and CLI developer reference.
+- [Syscoin Core – RPC & API reference — doc/REST-interface.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/REST-interface.md): RPC and CLI developer reference.
+- [Syscoin Core – RPC & API reference — doc/zmq.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/zmq.md): RPC and CLI developer reference.
+- [Syscoin Core – Wallet & transaction workflows — doc/psbt.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/psbt.md): Wallet integration and app-facing docs.
+- [Syscoin Core – Wallet & transaction workflows — doc/descriptors.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/descriptors.md): Wallet integration and app-facing docs.
+- [Syscoin Core – Wallet & transaction workflows — doc/multisig-tutorial.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/multisig-tutorial.md): Wallet integration and app-facing docs.
+- [Syscoin Core – Wallet & transaction workflows — doc/external-signer.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/external-signer.md): Wallet integration and app-facing docs.
+- [syscoinjs-lib – JavaScript SDK — README.md](https://raw.githubusercontent.com/syscoin/syscoinjs-lib/master/README.md): SDK docs and usage examples.
+- [syscoinjs-lib – JavaScript SDK — docs/](https://github.com/syscoin/syscoinjs-lib/tree/master/docs): Directory index. SDK docs and usage examples.
+- [Pali Wallet — README.md](https://raw.githubusercontent.com/syscoin/pali-wallet/master/README.md): Wallet integration and app-facing docs.
+- [Pali Wallet — docs/](https://github.com/syscoin/pali-wallet/tree/master/docs): Directory index. Wallet integration and app-facing docs.
+- [Pali Wallet — source/scripts/Background/controllers/message-handler/README.md](https://raw.githubusercontent.com/syscoin/pali-wallet/master/source/scripts/Background/controllers/message-handler/README.md): Wallet integration and app-facing docs.
+- [Syscoin Bridge — README.md](https://raw.githubusercontent.com/syscoin/syscoin-bridge/main/README.md): Bridge integration and cross-chain developer docs.
+- [Syscoin Bridge — docs/](https://github.com/syscoin/syscoin-bridge/tree/main/docs): Directory index. Bridge integration and cross-chain developer docs.
 
-## Developer – JS SDK
-- [syscoinjs-lib – JavaScript SDK](https://github.com/syscoin/syscoinjs-lib): GitHub repository (master branch/ref).
+## Run
+- [Syscoin Core – Overview — doc/README.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/README.md): Core node documentation and operational guidance.
+- [Syscoin Core – Overview — doc/release-notes.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/release-notes.md): Core node documentation and operational guidance.
+- [Syscoin Core – Overview — doc/release-process.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/release-process.md): Core node documentation and operational guidance.
+- [Syscoin Core – Overview — README.md](https://raw.githubusercontent.com/syscoin/syscoin/master/README.md): Core node documentation and operational guidance.
+- [Syscoin Core – Overview — CONTRIBUTING.md](https://raw.githubusercontent.com/syscoin/syscoin/master/CONTRIBUTING.md): Core node documentation and operational guidance.
+- [Syscoin Core – Overview — SECURITY.md](https://raw.githubusercontent.com/syscoin/syscoin/master/SECURITY.md): Core node documentation and operational guidance.
+- [Syscoin Core – Node setup & configuration — doc/init.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/init.md): Core node documentation and operational guidance.
+- [Syscoin Core – Node setup & configuration — doc/syscoin-conf.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/syscoin-conf.md): Core node documentation and operational guidance.
+- [Syscoin Core – Node setup & configuration — doc/files.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/files.md): Core node documentation and operational guidance.
+- [Syscoin Core – Node setup & configuration — doc/managing-wallets.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/managing-wallets.md): Core node documentation and operational guidance.
+- [Syscoin Core – Node setup & configuration — doc/reduce-memory.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/reduce-memory.md): Core node documentation and operational guidance.
+- [Syscoin Core – Node setup & configuration — doc/reduce-traffic.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/reduce-traffic.md): Core node documentation and operational guidance.
+- [Syscoin Core – Networking & privacy — doc/tor.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/tor.md): Core node documentation and operational guidance.
+- [Syscoin Core – Networking & privacy — doc/i2p.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/i2p.md): Core node documentation and operational guidance.
+- [Syscoin Core – Networking & privacy — doc/cjdns.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/cjdns.md): Core node documentation and operational guidance.
+- [Syscoin Core – Networking & privacy — doc/dnsseed-policy.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/dnsseed-policy.md): Core node documentation and operational guidance.
+- [Syscoin Core – Networking & privacy — doc/p2p-bad-ports.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/p2p-bad-ports.md): Core node documentation and operational guidance.
+- [Syscoin Sentinel — README.md](https://raw.githubusercontent.com/syscoin/sentinel/master/README.md): Core node documentation and operational guidance.
+- [Syscoin Docker images — README.md](https://raw.githubusercontent.com/syscoin/docker-syscoin-core/master/README.md): Containerized node and operations guidance.
 
-## Developer – Rosetta API
-- [Syscoin Rosetta API](https://github.com/syscoin/syscoin-rosetta): GitHub repository (master branch/ref).
+## Research / Specs
+- [Syscoin Core – Standards & process — doc/bips.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/bips.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Standards & process — doc/translation_process.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/translation_process.md): Canonical repository source (master branch/ref).
+- [Syscoin Core – Standards & process — doc/translation_strings_policy.md](https://raw.githubusercontent.com/syscoin/syscoin/master/doc/translation_strings_policy.md): Canonical repository source (master branch/ref).
+- [Syscoin Improvement Proposals (SyIPs)](https://github.com/syscoin/sips): Protocol proposals and specification material.
 
-## Developer – MetaMask Snap
-- [Syscoin MetaMask Snap](https://github.com/syscoin/syscoin-snap): GitHub repository (main branch/ref).
-
-## Developer – Pali Wallet
-- [Pali Wallet](https://github.com/syscoin/pali-wallet): GitHub repository (main branch/ref).
-
-## Developer – Syscoin Bridge
-- [Syscoin Bridge](https://github.com/syscoin/syscoin-bridge): GitHub repository (main branch/ref).
-
-## Node – Sentinel / Masternodes
-- [Syscoin Sentinel](https://github.com/syscoin/sentinel): GitHub repository (master branch/ref).
-
-## Operations – Docker
-- [Syscoin Docker images](https://github.com/syscoin/docker-syscoin-core): GitHub repository (master branch/ref).
-
-## Reference – Network Parameters
-- [Syscoin Network Parameters](llms-full.txt): Inlined in llms-full.txt.
-
-## Reference – NEVM Quick Reference
-- [Syscoin NEVM / EVM Quick Reference](llms-full.txt): Inlined in llms-full.txt.
-
-## Reference – zkSYS Stack / zk-hardhat
-- [zkSYS Stack / zk-hardhat Quick Reference](llms-full.txt): Inlined in llms-full.txt.
-
-## Ecosystem – Blog Highlights
+## Ecosystem
 - [Syscoin Blog – selected posts](https://syscoin.org/news/syscoin-platform-upgrade): Canonical web page.
 - [Syscoin Blog – selected posts](https://syscoin.org/news/introducing-rollux): Canonical web page.
 - [Syscoin Blog – selected posts](https://syscoin.org/news/syscoin-4-4-launch): Canonical web page.

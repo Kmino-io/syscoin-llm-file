@@ -482,63 +482,177 @@ def _github_repo_url(repo: str) -> str:
     return f"https://github.com/{repo}"
 
 
+def _infer_intent(section: str) -> str:
+    section_l = section.lower()
+    if "official docs" in section_l:
+        return "Learn"
+    if "blog" in section_l or "ecosystem" in section_l:
+        return "Ecosystem"
+    if any(k in section_l for k in ("node", "operations", "docker", "sentinel", "masternode")):
+        return "Run"
+    if any(k in section_l for k in ("developer", "rpc", "sdk", "bridge", "wallet")):
+        return "Build"
+    if any(k in section_l for k in ("spec", "syip", "research")):
+        return "Research / Specs"
+    if any(k in section_l for k in ("reference", "protocol", "nevm", "zdag", "z-dag", "zksys", "zk")):
+        return "Learn"
+    return "Optional"
+
+
+def _github_note(section: str, label: str, ref: str) -> str:
+    section_l = section.lower()
+    label_l = label.lower()
+    if "rpc" in section_l or "rpc" in label_l or "cli" in label_l:
+        return "RPC and CLI developer reference."
+    if "sdk" in section_l:
+        return "SDK docs and usage examples."
+    if "bridge" in section_l or "bridge" in label_l:
+        return "Bridge integration and cross-chain developer docs."
+    if "wallet" in section_l or "wallet" in label_l or "snap" in label_l:
+        return "Wallet integration and app-facing docs."
+    if "docker" in section_l:
+        return "Containerized node and operations guidance."
+    if "syip" in section_l or "spec" in section_l:
+        return "Protocol proposals and specification material."
+    if "node" in section_l or "core" in section_l:
+        return "Core node documentation and operational guidance."
+    if "protocol" in section_l or "nevm" in section_l or "zk" in section_l:
+        return "Protocol-level documentation and technical reference."
+    return f"Canonical repository source ({ref} branch/ref)."
+
+
+def _extract_failed_repos() -> set[str]:
+    failed_repos: set[str] = set()
+    for item in FAILED_LINKS:
+        url = item.get("url", "")
+        raw_m = re.search(r"raw\.githubusercontent\.com/([^/]+/[^/]+)/", url)
+        if raw_m:
+            failed_repos.add(raw_m.group(1))
+            continue
+        api_m = re.search(r"api\.github\.com/repos/([^/]+/[^/]+)/", url)
+        if api_m:
+            failed_repos.add(api_m.group(1))
+    return failed_repos
+
+
+def _extract_failed_urls() -> set[str]:
+    return {item.get("url", "") for item in FAILED_LINKS if item.get("url")}
+
+
 def assemble_llms_index(config: dict, full_output_name: str) -> str:
-    """Build a concise llms.txt index that points to canonical sources."""
+    """Build an intent-oriented llms.txt index for lightweight retrieval."""
     meta = config.get("metadata", {})
     title = meta.get("title", "Syscoin")
     description = meta.get(
         "description",
         "Curated index of canonical Syscoin docs for LLM retrieval.",
     )
+    now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    failed_repos = _extract_failed_repos()
+    failed_urls = _extract_failed_urls()
 
-    section_entries: dict[str, list[tuple[str, str, str]]] = {}
+    intent_entries: dict[str, list[tuple[str, str, str]]] = {
+        "Learn": [],
+        "Build": [],
+        "Run": [],
+        "Research / Specs": [],
+        "Ecosystem": [],
+        "Optional": [],
+    }
+    seen: set[tuple[str, str]] = set()
 
-    def add_entry(section: str, label: str, url: str, note: str) -> None:
-        section_entries.setdefault(section, []).append((label, url, note))
+    def add_entry(intent: str, label: str, url: str, note: str) -> None:
+        key = (label, url)
+        if key in seen:
+            return
+        seen.add(key)
+        intent_entries[intent].append((label, url, note))
+
+    # Keep a stable first section pointing to the generated full bundle.
+    add_entry(
+        "Learn",
+        "llms-full.txt",
+        full_output_name,
+        "Expanded context bundle with source-attributed content.",
+    )
 
     for item in config.get("github", []):
         section = item.get("section", "Uncategorized")
         repo = item["repo"]
         ref = item.get("ref", "main")
         label = item.get("label", repo)
-        add_entry(section, label, _github_repo_url(repo), f"GitHub repository ({ref} branch/ref).")
+        intent = _infer_intent(section)
+        note = _github_note(section, label, ref)
+        if repo in failed_repos:
+            note = f"Temporarily unstable source in latest generation; verify before relying on it. {note}"
+        paths = item.get("paths", [])
+        added_any = False
+
+        if paths:
+            for p in paths:
+                # Directory-style path: link to repo tree, not raw.
+                if p.endswith("/") or not Path(p).suffix:
+                    tree_url = f"{_github_repo_url(repo)}/tree/{ref}/{p.rstrip('/')}"
+                    if tree_url not in failed_urls:
+                        add_entry(intent, f"{label} — {p.rstrip('/')}/", tree_url, f"Directory index. {note}")
+                        added_any = True
+                    continue
+
+                ext = Path(p).suffix.lower()
+                if ext not in TEXT_EXTENSIONS:
+                    continue
+
+                raw_url = github_raw_url(repo, ref, p)
+                if raw_url in failed_urls:
+                    continue
+                add_entry(intent, f"{label} — {p}", raw_url, note)
+                added_any = True
+
+        if not added_any:
+            repo_url = _github_repo_url(repo)
+            if repo_url not in failed_urls:
+                add_entry(intent, label, repo_url, note)
 
     for item in config.get("web", []):
         section = item.get("section", "Official Docs")
+        intent = _infer_intent(section)
         label = item.get("label", "Web Docs")
         if "urls" in item:
             for url in item["urls"]:
-                add_entry(section, label, url, "Canonical web page.")
+                add_entry(intent, label, url, "Canonical web page.")
         elif "crawl" in item:
             root = item["crawl"].get("root")
             if root:
-                add_entry(section, label, root, "Crawl root for official docs.")
+                add_entry(intent, label, root, "Crawl root for official docs.")
 
     for item in config.get("static", []):
         section = item.get("section", "Reference")
+        intent = _infer_intent(section)
         label = item.get("label", "Static Reference")
-        add_entry(section, label, full_output_name, "Inlined in llms-full.txt.")
+        add_entry(intent, label, full_output_name, "Inlined reference inside llms-full.txt.")
 
-    order: list[str] = config.get("assembly_order", [])
-    ordered_sections = [s for s in order if s in section_entries] + [
-        s for s in section_entries if s not in order
-    ]
+    link_count = sum(len(v) for v in intent_entries.values())
 
     lines = [
         f"# {title}",
         "",
         f"> {description}",
         "",
-        "Use this index for lightweight discovery, then load llms-full.txt for full inline context.",
+        "Use this index for lightweight discovery. Start here, then load llms-full.txt for deep inline context.",
         "",
-        "## Full Context",
-        f"- [llms-full.txt]({full_output_name}): Expanded context bundle with source-attributed content.",
+        "## Metadata",
+        f"- Generated: {now}",
+        f"- Link count: {link_count}",
+        f"- Known source failures in last run: {len(FAILED_LINKS)}",
         "",
     ]
 
-    for section in ordered_sections:
-        lines.append(f"## {section}")
-        for label, url, note in section_entries[section]:
+    for intent in ("Learn", "Build", "Run", "Research / Specs", "Ecosystem", "Optional"):
+        entries = intent_entries[intent]
+        if not entries:
+            continue
+        lines.append(f"## {intent}")
+        for label, url, note in entries:
             lines.append(f"- [{label}]({url}): {note}")
         lines.append("")
 

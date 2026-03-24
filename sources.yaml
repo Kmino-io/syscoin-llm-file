@@ -28,26 +28,11 @@ github:
   # -- Core protocol / node ------------------------------------------------
   - repo: syscoin/syscoin
     ref: master          # branch, tag, or full commit SHA
-    label: "Syscoin Core – Docs"
+    label: "Syscoin Core – Overview"
     paths:
       - doc/README.md
-      - doc/build-unix.md
-      - doc/build-osx.md
-      - doc/build-windows.md
-      - doc/build-freebsd.md
-      - doc/dependencies.md
       - doc/release-notes.md
-      - doc/reduce-memory.md
-      - doc/reduce-traffic.md
-      - doc/REST-interface.md
-      - doc/tor.md
-      - doc/i2p.md
-      - doc/multiwallet-qt.md
-      - doc/psbt.md
-      - doc/descriptors.md
-      - doc/hardware-wallets.md
-      - doc/signet.md
-      - doc/assets-whitepaper.pdf   # skip if binary; generator handles gracefully
+      - doc/release-process.md
       - README.md
       - CONTRIBUTING.md
       - SECURITY.md
@@ -55,29 +40,79 @@ github:
 
   - repo: syscoin/syscoin
     ref: master
-    label: "Syscoin Core – RPC & CLI reference"
-    # These are generated man pages / text refs committed to the repo.
+    label: "Syscoin Core – Node setup & configuration"
     paths:
+      - doc/init.md
       - doc/syscoin-conf.md
-    # Fallback: if the doc/ folder doesn't have pre-rendered refs, the
-    # generator will attempt to download from the docs site or skip.
-    section: "Developer – RPC & CLI"
+      - doc/files.md
+      - doc/managing-wallets.md
+      - doc/reduce-memory.md
+      - doc/reduce-traffic.md
+    section: "Node – Setup & Configuration"
 
-  # -- NEVM / EVM layer ----------------------------------------------------
   - repo: syscoin/syscoin
     ref: master
-    label: "Syscoin NEVM – EVM integration docs"
+    label: "Syscoin Core – Networking & privacy"
     paths:
-      - doc/nevm/README.md
-      - doc/nevm/evm-integration.md
-      - doc/nevm/evm-parameters.md
-      - doc/nevm/cross-chain.md
-    # These paths may not exist yet; generator skips missing files with a warning.
-    section: "Protocol – NEVM (EVM Layer)"
+      - doc/tor.md
+      - doc/i2p.md
+      - doc/cjdns.md
+      - doc/dnsseed-policy.md
+      - doc/p2p-bad-ports.md
+    section: "Node – Networking & Privacy"
+
+  - repo: syscoin/syscoin
+    ref: master
+    label: "Syscoin Core – Build & developer tooling"
+    paths:
+      - doc/build-unix.md
+      - doc/build-osx.md
+      - doc/build-windows.md
+      - doc/build-freebsd.md
+      - doc/build-netbsd.md
+      - doc/build-openbsd.md
+      - doc/build-android.md
+      - doc/dependencies.md
+      - doc/developer-notes.md
+      - doc/productivity.md
+      - doc/benchmarking.md
+      - doc/shared-libraries.md
+      - doc/guix.md
+      - doc/fuzzing.md
+      - doc/tracing.md
+    section: "Developer – Build & Tooling"
+
+  - repo: syscoin/syscoin
+    ref: master
+    label: "Syscoin Core – RPC & API reference"
+    paths:
+      - doc/JSON-RPC-interface.md
+      - doc/REST-interface.md
+      - doc/zmq.md
+    section: "Developer – RPC & APIs"
+
+  - repo: syscoin/syscoin
+    ref: master
+    label: "Syscoin Core – Wallet & transaction workflows"
+    paths:
+      - doc/psbt.md
+      - doc/descriptors.md
+      - doc/multisig-tutorial.md
+      - doc/external-signer.md
+    section: "Developer – Wallet & Transactions"
+
+  - repo: syscoin/syscoin
+    ref: master
+    label: "Syscoin Core – Standards & process"
+    paths:
+      - doc/bips.md
+      - doc/translation_process.md
+      - doc/translation_strings_policy.md
+    section: "Research – Standards & Process"
 
   # -- Rollux (L2 on Syscoin) ----------------------------------------------
   - repo: sys-labs/rollux
-    ref: main
+    ref: develop
     label: "Rollux – L2 documentation"
     paths:
       - README.md
@@ -87,8 +122,8 @@ github:
     recursive: true
 
   # -- SRC-20 / token standard ---------------------------------------------
-  - repo: syscoin/syips
-    ref: main
+  - repo: syscoin/sips
+    ref: master
     label: "Syscoin Improvement Proposals (SyIPs)"
     paths: []          # empty = include all .md files at repo root
     recursive: false
@@ -112,29 +147,14 @@ github:
     recursive: true
     section: "Developer – JS SDK"
 
-  - repo: syscoin/syscoin-rosetta
-    ref: master
-    label: "Syscoin Rosetta API"
-    paths:
-      - README.md
-      - docs/
-    recursive: true
-    section: "Developer – Rosetta API"
-
-  - repo: syscoin/syscoin-snap
-    ref: main
-    label: "Syscoin MetaMask Snap"
-    paths:
-      - README.md
-    section: "Developer – MetaMask Snap"
-
   # -- Pali Wallet ---------------------------------------------------------
   - repo: syscoin/pali-wallet
-    ref: main
+    ref: master
     label: "Pali Wallet"
     paths:
       - README.md
       - docs/
+      - source/scripts/Background/controllers/message-handler/README.md
     recursive: true
     section: "Developer – Pali Wallet"
 
@@ -155,6 +175,21 @@ github:
     paths:
       - README.md
       - docs/
+      - CHANGELOG.md
+      - CONTRIBUTING.md
+      - core/bin/external_node/README.md
+      - core/lib/config/README.md
+      - core/lib/da_client/README.md
+      - core/lib/dal/README.md
+      - core/lib/multivm/README.md
+      - core/lib/vm_interface/README.md
+      - core/node/api_server/README.md
+      - core/node/consensus/README.md
+      - core/node/contract_verification_server/README.md
+      - core/node/da_clients/README.md
+      - core/node/genesis/README.md
+      - core/node/node_sync/README.md
+      - core/node/state_keeper/README.md
     recursive: true
     section: "Protocol – ZK Network"
 
@@ -370,17 +405,19 @@ static:
 # ---------------------------------------------------------------------------
 assembly_order:
   - "Node / Core"
-  - "Protocol – NEVM (EVM Layer)"
+  - "Node – Setup & Configuration"
+  - "Node – Networking & Privacy"
   - "Protocol – Z-DAG"
   - "Protocol – Rollux (L2)"
   - "Protocol – Rollux Docs"
   - "Protocol – ZK Network"
+  - "Research – Standards & Process"
   - "Specs – SyIPs"
   - "Official Docs"
-  - "Developer – RPC & CLI"
+  - "Developer – RPC & APIs"
+  - "Developer – Wallet & Transactions"
+  - "Developer – Build & Tooling"
   - "Developer – JS SDK"
-  - "Developer – Rosetta API"
-  - "Developer – MetaMask Snap"
   - "Developer – Pali Wallet"
   - "Developer – Syscoin Bridge"
   - "Node – Sentinel / Masternodes"
