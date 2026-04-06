@@ -6,7 +6,7 @@
 Use this index for lightweight discovery. Start here, then load llms-full.txt for deep inline context.
 
 ## Metadata
-- Generated: 2026-03-30T05:27:31Z
+- Generated: 2026-04-06T05:27:23Z
 - Link count: 82
 - Known source failures in last run: 0
 
